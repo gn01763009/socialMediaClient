@@ -5,11 +5,11 @@ import {
 	UNLIKE_SCREAM,
 	DELETE_SCREAM,
 	SET_ERRORS,
+	POST_SCREAM,
 	CLEAR_ERRORS,
 	LOADING_UI,
-	POST_SCREAM,
-	STOP_LOADING_UI,
 	SET_SCREAM,
+	STOP_LOADING_UI,
 	SUBMIT_COMMENT,
 } from '../types'
 import axios from 'axios'
@@ -32,7 +32,6 @@ export const getScreams = () => (dispatch) => {
 			})
 		})
 }
-// Get scream
 export const getScream = (screamId) => (dispatch) => {
 	dispatch({ type: LOADING_UI })
 	axios
@@ -61,7 +60,7 @@ export const postScream = (newScream) => (dispatch) => {
 		.catch((err) => {
 			dispatch({
 				type: SET_ERRORS,
-				payload: err.data,
+				payload: err.response.data,
 			})
 		})
 }
@@ -77,7 +76,6 @@ export const likeScream = (screamId) => (dispatch) => {
 		})
 		.catch((err) => console.log(err))
 }
-
 // Unlike a scream
 export const unlikeScream = (screamId) => (dispatch) => {
 	axios
@@ -99,13 +97,12 @@ export const submitComment = (screamId, commentData) => (dispatch) => {
 				type: SUBMIT_COMMENT,
 				payload: res.data,
 			})
-			console.log(res)
 			dispatch(clearErrors())
 		})
 		.catch((err) => {
 			dispatch({
 				type: SET_ERRORS,
-				payload: err.data,
+				payload: err.response.data,
 			})
 		})
 }
@@ -113,13 +110,11 @@ export const deleteScream = (screamId) => (dispatch) => {
 	axios
 		.delete(`/scream/${screamId}`)
 		.then(() => {
-			dispatch({
-				type: DELETE_SCREAM,
-				payload: screamId,
-			})
+			dispatch({ type: DELETE_SCREAM, payload: screamId })
 		})
 		.catch((err) => console.log(err))
 }
+
 export const getUserData = (userHandle) => (dispatch) => {
 	dispatch({ type: LOADING_DATA })
 	axios
@@ -137,6 +132,7 @@ export const getUserData = (userHandle) => (dispatch) => {
 			})
 		})
 }
+
 export const clearErrors = () => (dispatch) => {
 	dispatch({ type: CLEAR_ERRORS })
 }

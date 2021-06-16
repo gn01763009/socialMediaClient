@@ -71,7 +71,6 @@ class EditDetails extends Component {
 		this.props.editUserDetails(userDetails)
 		this.handleClose()
 	}
-
 	render() {
 		const { classes } = this.props
 		return (
@@ -115,8 +114,8 @@ class EditDetails extends Component {
 								fullWidth
 							/>
 							<TextField
-								name='locaiton'
-								type='text'
+								name='location'
+								tpye='text'
 								label='Location'
 								placeholder='Where you live'
 								className={classes.textField}

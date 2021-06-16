@@ -19,12 +19,15 @@ import signup from './pages/signup'
 import user from './pages/user'
 import axios from 'axios'
 
+axios.defaults.baseURL =
+	'https://asia-southeast1-socialmedia-cea22.cloudfunctions.net/api'
+
 const token = localStorage.FBIdToken
 if (token) {
 	const decodedToken = jwtDecode(token)
 	if (decodedToken.exp * 1000 < Date.now()) {
 		store.dispatch(logoutUser())
-		window.location.href = '/login'
+		window.location.href = '/signin'
 	} else {
 		store.dispatch({ type: SET_AUTHENTICATED })
 		axios.defaults.headers.common['Authorization'] = token
@@ -46,7 +49,7 @@ class App extends Component {
 								<Route exact path='/users/:handle' component={user} />
 								<Route
 									exact
-									path='/users/:handle/screams/:screamId'
+									path='/users/:handle/scream/:screamId'
 									component={user}
 								/>
 							</Switch>

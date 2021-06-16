@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import PropTypes from 'prop-types'
-
-//MUI
+// MUI stuff
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import IconButton from '@material-ui/core/IconButton'
@@ -15,7 +14,7 @@ import Badge from '@material-ui/core/Badge'
 import NotificationsIcon from '@material-ui/icons/Notifications'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import ChatIcon from '@material-ui/icons/Chat'
-//Redux
+// Redux
 import { connect } from 'react-redux'
 import { markNotificationsRead } from '../../redux/actions/userAction'
 
@@ -37,7 +36,6 @@ class Notifications extends Component {
 	}
 	render() {
 		const notifications = this.props.notifications
-		console.log(notifications)
 		const anchorEl = this.state.anchorEl
 
 		dayjs.extend(relativeTime)
@@ -62,7 +60,7 @@ class Notifications extends Component {
 		let notificationsMarkup =
 			notifications && notifications.length > 0 ? (
 				notifications.map((not) => {
-					const verb = not.type === 'like' ? 'liked' : 'commented on '
+					const verb = not.type === 'like' ? 'liked' : 'commented on'
 					const time = dayjs(not.createdAt).fromNow()
 					const iconColor = not.read ? 'primary' : 'secondary'
 					const icon =
@@ -77,12 +75,11 @@ class Notifications extends Component {
 							{icon}
 							<Typography
 								component={Link}
-								color='default'
+								color='primary'
 								variant='body1'
 								to={`/users/${not.recipient}/scream/${not.screamId}`}
 							>
-								{not.sender}
-								{verb}your scream {time}
+								{not.sender} {verb} your scream {time}
 							</Typography>
 						</MenuItem>
 					)
@@ -118,7 +115,7 @@ class Notifications extends Component {
 
 Notifications.propTypes = {
 	markNotificationsRead: PropTypes.func.isRequired,
-	notifications: PropTypes.object.isRequired,
+	notifications: PropTypes.array.isRequired,
 }
 
 const mapStateToProps = (state) => ({
