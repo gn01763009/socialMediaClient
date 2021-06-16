@@ -16,6 +16,7 @@ import AuthRoute from './util/AuthRoute'
 import home from './pages/home'
 import signin from './pages/signin'
 import signup from './pages/signup'
+import user from './pages/user'
 import axios from 'axios'
 
 const token = localStorage.FBIdToken
@@ -42,6 +43,12 @@ class App extends Component {
 								<Route exact path='/' component={home} />
 								<AuthRoute exact path='/signin' component={signin} />
 								<AuthRoute exact path='/signup' component={signup} />
+								<Route exact path='/users/:handle' component={user} />
+								<Route
+									exact
+									path='/users/:handle/screams/:screamId'
+									component={user}
+								/>
 							</Switch>
 						</div>
 					</Router>

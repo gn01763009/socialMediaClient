@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import withStyles from '@material-ui/core/styles/withStyles'
 // Redux
 import { connect } from 'react-redux'
-import { editUserDetails } from '../redux/actions/userAction'
+import { editUserDetails } from '../../redux/actions/userAction'
 
 // MUI stuff
 import Button from '@material-ui/core/Button'
@@ -14,9 +14,8 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
 
 // Icon
-import { IconButton, Tooltip } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
-import MyButton from '../util/MyButton'
+import MyButton from '../../util/MyButton'
 
 const styles = (theme) => ({
 	form: {
@@ -134,7 +133,6 @@ class EditDetails extends Component {
 							variant='contained'
 							color='primary'
 							onClick={this.handleSubmit}
-							color='primary'
 						>
 							Save
 						</Button>

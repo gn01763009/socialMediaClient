@@ -2,20 +2,18 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import MyButton from '../util/MyButton'
-import PostScream from '../screa/PostScream'
+import MyButton from '../../util/MyButton'
+import PostScream from '../scream/PostScream'
+import Notifications from './Notifications'
 // MUI stuff
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Avatar from '@material-ui/core/Avatar'
-import { Tooltip } from '@material-ui/core'
 
 // Icons
-import AddIcon from '@material-ui/icons/Add'
 import HomeIcon from '@material-ui/icons/Home'
-import Notifications from '@material-ui/icons/Notifications'
 
 const styles = (theme) => ({
 	AppBar: {
@@ -32,10 +30,8 @@ const styles = (theme) => ({
 class Navbar extends Component {
 	render() {
 		const {
-			classes,
 			user: {
 				credentials: { handle, imageUrl },
-				loading,
 				authenticated,
 			},
 		} = this.props
@@ -47,16 +43,10 @@ class Navbar extends Component {
 							<PostScream />
 							<Link to='/'>
 								<MyButton tip='Home'>
-									<HomeIcon color='secondary' />
+									<HomeIcon />
 								</MyButton>
 							</Link>
-							<MyButton tip='Notifications'>
-								<Notifications color='secondary' />
-							</MyButton>
-							<Button color='inherit' component={Link} to={`/${handle}`}>
-								<Avatar src={imageUrl} />
-								{handle}
-							</Button>
+							<Notifications />
 						</Fragment>
 					) : (
 						<Fragment>
