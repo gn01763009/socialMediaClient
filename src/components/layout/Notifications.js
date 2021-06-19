@@ -53,9 +53,9 @@ class Notifications extends Component {
 							<NotificationsIcon />
 						</Badge>
 				  ))
-				: (notificationsIcon = <NotificationsIcon />)
+				: (notificationsIcon = <NotificationsIcon style={{ fontSize: 24 }} />)
 		} else {
-			notificationsIcon = <NotificationsIcon />
+			notificationsIcon = <NotificationsIcon style={{ fontSize: 24 }} />
 		}
 		let notificationsMarkup =
 			notifications && notifications.length > 0 ? (

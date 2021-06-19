@@ -43,6 +43,12 @@ const styles = (theme) => ({
 		marginTop: 50,
 		marginBottom: 50,
 	},
+	submit: {
+		display: 'flex',
+	},
+	button: {
+		marginLeft: 10,
+	},
 })
 
 class CommentForm extends Component {
@@ -70,17 +76,17 @@ class CommentForm extends Component {
 		const errors = this.state.errors
 		const commentFormMarkup = authenticated ? (
 			<Grid item sm={12} styles={{ textAlign: 'center' }}>
-				<form onSubmit={this.handleSubmit}>
+				<form onSubmit={this.handleSubmit} className={classes.submit}>
 					<TextField
 						name='body'
 						type='text'
 						label='Comment on scream'
-						error={errors.comment ? true : false}
 						helperText={errors.comment}
 						value={this.state.body}
 						onChange={this.handleChange}
 						fullWidth
 						className={classes.textField}
+						required
 					/>
 					<Button
 						type='submit'
@@ -91,7 +97,6 @@ class CommentForm extends Component {
 						Submit
 					</Button>
 				</form>
-				<hr className={classes.visibleSeparator} />
 			</Grid>
 		) : null
 		return commentFormMarkup

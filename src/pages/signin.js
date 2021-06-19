@@ -172,31 +172,12 @@ class signin extends Component {
 						</Grid>
 					</form>
 				</div>
-				<Box mt={8}>
-					<Copyright />
-				</Box>
+				<Box mt={8}></Box>
 			</Container>
 		)
 	}
 }
 
-export function Copyright() {
-	return (
-		<Typography variant='body2' color='textSecondary' align='center'>
-			{'Copyright © '}
-			<a
-				color='inherit'
-				href='https://www.reggie.life/'
-				target='_blank'
-				rel='noopener noreferrer'
-			>
-				Reggie.Life
-			</a>{' '}
-			{new Date().getFullYear()}
-			{'.'}
-		</Typography>
-	)
-}
 signin.propTypes = {
 	classes: propTypes.object.isRequired,
 	loginUser: propTypes.func.isRequired,

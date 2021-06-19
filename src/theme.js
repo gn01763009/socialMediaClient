@@ -1,5 +1,4 @@
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
-
 const theme = createMuiTheme({
 	palette: {
 		primary: {
@@ -14,6 +13,8 @@ const theme = createMuiTheme({
 			dark: '#004ba0',
 			contrasText: '#fff',
 		},
+	},
+	other: {
 		typography: {
 			useNextVariants: true,
 		},

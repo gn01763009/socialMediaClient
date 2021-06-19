@@ -13,9 +13,9 @@ import DialogContent from '@material-ui/core/DialogContent'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
+import Collapse from '@material-ui/core/Collapse'
 // Icons
 import CloseIcon from '@material-ui/icons/Close'
-import UnfoldMore from '@material-ui/icons/UnfoldMore'
 import ChatIcon from '@material-ui/icons/Chat'
 // Redux stuff
 import { connect } from 'react-redux'
@@ -41,10 +41,6 @@ const styles = (theme) => ({
 		padding: 20,
 	},
 	closeButton: {
-		position: 'absolute',
-		left: '90%',
-	},
-	expandButton: {
 		position: 'absolute',
 		left: '90%',
 	},
@@ -141,17 +137,12 @@ class ScreamDialog extends Component {
 			<Fragment>
 				<MyButton
 					onClick={this.handleOpen}
-					tip='Expand scream'
+					tip='Comment'
 					tipClassName={classes.expandButton}
 				>
-					<UnfoldMore color='primary' />
+					<ChatIcon />
 				</MyButton>
-				<Dialog
-					open={this.state.open}
-					onClose={this.handleClose}
-					fullWidth
-					maxWidth='sm'
-				>
+				<Dialog open={this.state.open} onClose={this.handleClose} fullWidth>
 					<MyButton
 						tip='Close'
 						onClick={this.handleClose}

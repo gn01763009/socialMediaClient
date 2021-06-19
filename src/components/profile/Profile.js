@@ -18,11 +18,13 @@ import Location from '@material-ui/icons/LocationOn'
 import LinkIcon from '@material-ui/icons/Link'
 import CalendarToday from '@material-ui/icons/CalendarToday'
 import EditIcon from '@material-ui/icons/Edit'
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera'
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn'
 
 // Redux
 import { connect } from 'react-redux'
 import { uploadImage, logoutUser } from '../../redux/actions/userAction'
+import { Grid } from '@material-ui/core'
 
 const styles = (theme) => ({
 	paper: {
@@ -70,6 +72,9 @@ const styles = (theme) => ({
 			margin: '20px 10px',
 		},
 	},
+	details: {
+		textAlign: 'left',
+	},
 })
 
 class Profile extends Component {
@@ -108,11 +113,11 @@ class Profile extends Component {
 								onChange={this.handleImageChange}
 							/>
 							<MyButton
-								tip='Edit'
+								tip='Upload'
 								onClick={this.handleEditPicture}
 								btnClassName='button'
 							>
-								<EditIcon color='primary' />
+								<PhotoCameraIcon color='primary' />
 							</MyButton>
 						</div>
 						<hr />
@@ -128,24 +133,26 @@ class Profile extends Component {
 							<hr />
 							{bio && <Typography variant='body2'>{bio}</Typography>}
 							<hr />
-							{location && (
-								<Fragment>
-									<Location color='primary' /> <span>{location}</span>
-									<hr />
-								</Fragment>
-							)}
-							{website && (
-								<Fragment>
-									<LinkIcon color='primary' />
-									<a href={website} target='_blank' rel='noopener noreferrer'>
-										{' '}
-										{website}
-									</a>
-									<hr />
-								</Fragment>
-							)}
-							<CalendarToday color='primary' />{' '}
-							<span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
+							<Grid className={classes.details}>
+								{location && (
+									<Fragment>
+										<Location color='primary' /> <span>{location}</span>
+										<hr />
+									</Fragment>
+								)}
+								{website && (
+									<Fragment>
+										<LinkIcon color='primary' />
+										<a href={website} target='_blank' rel='noopener noreferrer'>
+											{' '}
+											{website}
+										</a>
+										<hr />
+									</Fragment>
+								)}
+								<CalendarToday color='primary' />{' '}
+								<span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
+							</Grid>
 						</div>
 						<MyButton tip='Logout' onClick={this.handleLogout}>
 							<KeyboardReturn color='primary' />

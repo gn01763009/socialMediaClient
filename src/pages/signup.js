@@ -12,7 +12,6 @@ import { Link } from 'react-router-dom'
 import Box from '@material-ui/core/Box'
 import Container from '@material-ui/core/Container'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { Copyright } from './signin'
 
 // Redux stuff
 import { connect } from 'react-redux'
@@ -207,9 +206,7 @@ class signup extends Component {
 						</Grid>
 					</form>
 				</div>
-				<Box mt={8}>
-					<Copyright />
-				</Box>
+				<Box mt={8}></Box>
 			</Container>
 		)
 	}

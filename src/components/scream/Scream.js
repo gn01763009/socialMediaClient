@@ -11,27 +11,48 @@ import LikeButton from './LikeButton'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
-import { Typography } from '@material-ui/core'
+import Avatar from '@material-ui/core/Avatar'
+import { Button, Grid, Typography } from '@material-ui/core'
 import { Link } from 'react-router-dom'
+import Collapse from '@material-ui/core/Collapse'
 // Icon
 import ChatIcon from '@material-ui/icons/Chat'
 
 // Redux
 import { connect } from 'react-redux'
+import theme from '../../theme'
 
 const styles = {
 	card: {
 		position: 'relative',
-		display: 'flex',
-		marginBottom: 20,
+		marginBottom: 14,
 	},
 	image: {
-		minWidth: 200,
-		height: 200,
+		width: theme.spacing(7),
+		height: theme.spacing(7),
+	},
+	userHandle: {
+		display: 'flex',
 	},
 	content: {
 		padding: 25,
 		objectFit: 'cover',
+	},
+	body: {
+		margin: 20,
+	},
+	hr: {
+		width: '100%',
+		color: 'grey',
+	},
+	userInfo: {
+		marginLeft: 8,
+	},
+	like: {
+		textAlign: 'center',
+	},
+	comment: {
+		textAlign: 'center',
 	},
 }
 
@@ -62,9 +83,11 @@ class Scream extends Component {
 		return (
 			<Card className={classes.card}>
 				<CardMedia
-					image={userImage}
-					title='Profile image'
-					className={classes.image}
+					component='img'
+					alt='Contemplative Reptile'
+					height='140'
+					image='https://source.unsplash.com/random/1200x800'
+					title='Contemplative Reptile'
 				/>
 				<CardContent className={classes.content}>
 					<Typography
@@ -72,25 +95,39 @@ class Scream extends Component {
 						component={Link}
 						to={`/users/${userHandle}`}
 						color='primary'
+						className={classes.userHandle}
 					>
-						{userHandle}
+						<Avatar
+							src={userImage}
+							title='Profile image'
+							className={classes.image}
+						/>
+						<Grid className={classes.userInfo} direction='column'>
+							{userHandle}
+							<Typography variant='body2' color='textSecondary'>
+								{dayjs(createdAt).fromNow()}
+							</Typography>
+						</Grid>
+						<Grid>{deleteButton}</Grid>
 					</Typography>
-					{deleteButton}
-					<Typography variant='body2' color='textSecondary'>
-						{dayjs(createdAt).fromNow()}
+					<Typography variant='body2' className={classes.body}>
+						{body}
 					</Typography>
-					<Typography variant='body1'>{body}</Typography>
-					<LikeButton screamId={screamId} />
-					<span>{likeCount} Likes</span>
-					<MyButton tip='comments'>
-						<ChatIcon color='primary' />
-					</MyButton>
-					<span>{commentCount} comments</span>
-					<ScreamDialog
-						screamId={screamId}
-						userHandle={userHandle}
-						openDialog={this.props.openDialog}
-					/>
+					<hr className={classes.hr} />
+					<Grid container direction='row' justify='space-around'>
+						<Grid className={classes.like} item xs={6}>
+							<LikeButton screamId={screamId} />
+							<span>{likeCount} Likes</span>
+						</Grid>
+						<Grid className={classes.comment} item xs={6}>
+							<ScreamDialog
+								screamId={screamId}
+								userHandle={userHandle}
+								openDialog={this.props.openDialog}
+							/>
+							<span>{commentCount} comments</span>
+						</Grid>
+					</Grid>
 				</CardContent>
 			</Card>
 		)

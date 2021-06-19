@@ -4,24 +4,27 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { ThemeProvider } from '@material-ui/core/styles'
 import theme from './theme'
 import jwtDecode from 'jwt-decode'
+import drawerImage from './image/background.jpg'
+import { Grid, Paper } from '@material-ui/core'
+
 // Redux
 import { Provider } from 'react-redux'
 import store from './redux/store'
 import { SET_AUTHENTICATED } from './redux/types'
 import { getUserData, logoutUser } from './redux/actions/userAction'
+import AuthRoute from './util/AuthRoute'
+
 // Components
 import Navbar from './components/layout/Navbar'
-import AuthRoute from './util/AuthRoute'
+import Footer from './components/layout/Footer'
 // Pages
 import home from './pages/home'
 import signin from './pages/signin'
 import signup from './pages/signup'
 import user from './pages/user'
 import axios from 'axios'
-
 axios.defaults.baseURL =
 	'https://asia-southeast1-socialmedia-cea22.cloudfunctions.net/api'
-
 const token = localStorage.FBIdToken
 if (token) {
 	const decodedToken = jwtDecode(token)
@@ -36,6 +39,7 @@ if (token) {
 }
 class App extends Component {
 	render() {
+		const { classes } = this.props
 		return (
 			<ThemeProvider theme={theme}>
 				<Provider store={store}>
@@ -54,6 +58,7 @@ class App extends Component {
 								/>
 							</Switch>
 						</div>
+						<Footer />
 					</Router>
 				</Provider>
 			</ThemeProvider>

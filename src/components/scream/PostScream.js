@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import withStyles from '@material-ui/core/styles/withStyles'
 import MyButton from '../../util/MyButton'
+import ScreamAlert from './ScreamAlert'
 // MUI stuff
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
@@ -15,7 +16,6 @@ import CloseIcon from '@material-ui/icons/Close'
 // Redux
 import { connect } from 'react-redux'
 import { postScream, clearErrors } from '../../redux/actions/dataActions'
-
 const styles = (theme) => ({
 	form: {
 		width: '100%', // Fix IE 11 issue.
@@ -82,7 +82,7 @@ class PostScream extends Component {
 		return (
 			<Fragment>
 				<MyButton onClick={this.handleOpen} tip='Post a Scream!'>
-					<AddIcon />
+					<AddIcon style={{ fontSize: 24 }} />
 				</MyButton>
 				<Dialog
 					open={this.state.open}
