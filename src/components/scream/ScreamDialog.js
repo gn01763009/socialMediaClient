@@ -21,6 +21,7 @@ import ChatIcon from '@material-ui/icons/Chat'
 // Redux stuff
 import { connect } from 'react-redux'
 import { getScream, clearErrors } from '../../redux/actions/dataActions'
+import axios from 'axios'
 
 const styles = (theme) => ({
 	invisibleSeparator: {
@@ -57,6 +58,7 @@ class ScreamDialog extends Component {
 		open: false,
 		oldPath: '',
 		newPath: '',
+		comments: [],
 	}
 	componentDidMount() {
 		if (this.props.openDialog) {
@@ -68,6 +70,10 @@ class ScreamDialog extends Component {
 			if (oldPath === newPath) oldPath = `/users/${userHandle}`
 
 			window.history.pushState(null, null, newPath)
+
+			axios.get(`/scream/${screamId}`).then((res) => {
+				this.setState({ comments: res.data.comments })
+			})
 
 			this.setState({ open: true, oldPath, newPath })
 			this.props.getScream(this.props.screamId)
@@ -83,30 +89,15 @@ class ScreamDialog extends Component {
 	render() {
 		const {
 			classes,
-			scream: {
-				screamId,
-				body,
-				createdAt,
-				likeCount,
-				commentCount,
-				userImage,
-				userHandle,
-				comments,
-			},
+			scream: { screamId },
 			UI: { loading },
 		} = this.props
 
 		const dialogMarkup = this.state.open ? (
-			loading ? (
-				<div className={classes.spinnerDiv}>
-					<CircularProgress size={10} thickness={1} />
-				</div>
-			) : (
-				<Grid container spacing={2}>
-					<div></div>
-					<Comments comments={comments} />
-				</Grid>
-			)
+			<Grid container spacing={2}>
+				<div></div>
+				<Comments comments={this.state.comments} />
+			</Grid>
 		) : null
 		return <Fragment key={screamId}>{dialogMarkup}</Fragment>
 	}

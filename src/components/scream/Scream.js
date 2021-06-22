@@ -183,17 +183,11 @@ class Scream extends Component {
 						</Grid>
 					</Grid>
 					<CommentForm screamId={screamId} />
-					{/* <ScreamDialog
-						screamId={screamId}
-						userHandle={userHandle}
-						openDialog={this.state.open}
-					/> */}
 					{this.state.open ? (
 						<ScreamDialog
 							screamId={screamId}
 							userHandle={userHandle}
 							openDialog={true}
-							open
 						/>
 					) : null}
 				</CardContent>

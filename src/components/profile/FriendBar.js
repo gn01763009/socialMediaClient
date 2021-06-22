@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Sponsored from './Sponsored'
+import Contacts from './Contacts'
 
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -26,6 +28,7 @@ const drawerWidth = 240
 
 const styles = (theme) => ({
 	profileBar: {
+		marginBottom: 200,
 		[theme.breakpoints.down('md')]: {
 			display: 'none',
 			zIndex: 'auto',
@@ -40,6 +43,7 @@ const styles = (theme) => ({
 	appBar: {
 		[theme.breakpoints.up('sm')]: {
 			marginRight: drawerWidth,
+			marginBottom: 200,
 		},
 	},
 	menuButton: {
@@ -148,41 +152,9 @@ class FriendBar extends Component {
 		const drawer = (
 			<div className={classes.profileBar}>
 				<List>
-					<Link to={`/users/${handle}`}>
-						<ListItem button>
-							<div className={classes.handleBar}>
-								<ListItemIcon>
-									<Avatar src={imageUrl}></Avatar>
-								</ListItemIcon>
-							</div>
-							<ListItemText primary={handle} />
-						</ListItem>
-					</Link>
-					{iconUrl.name.map((text, index) => (
-						<ListItem button key={text}>
-							<ListItemIcon>
-								<Avatar src={iconUrl.url[index]}></Avatar>
-							</ListItemIcon>
-							<ListItemText primary={text} />
-						</ListItem>
-					))}
-					{this.state.open ? <MoreListItem /> : null}
-					<ListItem button onClick={this.handleClick}>
-						<ListItemIcon>
-							{this.state.open ? (
-								<ExpandLessIcon style={{ fontSize: 30 }} />
-							) : (
-								<ExpandMoreIcon style={{ fontSize: 30 }} />
-							)}
-						</ListItemIcon>
-						<ListItemText primary={this.state.open ? 'See less' : 'See more'} />
-					</ListItem>
-					<ListItem>
-						<ListItemText primary={'Your Shortcut'} />
-					</ListItem>
-					<Divider />
+					<Sponsored />
+					<Contacts />
 				</List>
-				<Footer footerClassName={classes.footer} />
 			</div>
 		)
 

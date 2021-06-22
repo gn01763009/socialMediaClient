@@ -56,6 +56,8 @@ const styles = (theme) => ({
 	'@global': {
 		'*::-webkit-scrollbar': {
 			width: '0.6em',
+			scrollBehavior: 'smooth',
+			transitionTimingFunction: 'ease',
 		},
 		'*::-webkit-scrollbar-track': {
 			'-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)',
