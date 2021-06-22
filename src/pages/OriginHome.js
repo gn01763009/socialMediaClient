@@ -2,31 +2,16 @@ import React, { Component } from 'react'
 import Grid from '@material-ui/core/Grid'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import theme from '../theme'
 
-import ProfileBar from '../components/profile/ProfileBar'
 import Profile from '../components/profile/Profile'
-import FriendBar from '../components/profile/FriendBar'
 import Scream from '../components/scream/Scream'
 import ScreamSkeleton from '../util/ScreamSkeleton'
-import Story from '../components/scream/Story'
-import PostBar from '../components/scream/PostBar'
 
 import { connect } from 'react-redux'
 import { getScreams } from '../redux/actions/dataActions'
 
 const styles = {
-	mainLayout: {
-		display: 'flex',
-		justifyContent: 'space-between',
-		'& .profile': {
-			minHeight: 'calc(100vh - 1)',
-		},
-	},
-	screamBar: {
-		maxWidth: 590,
-		minWidth: 590,
-	},
+	profile: {},
 }
 class home extends Component {
 	componentDidMount() {
@@ -41,25 +26,12 @@ class home extends Component {
 			<ScreamSkeleton />
 		)
 		return (
-			<Grid
-				className={classes.mainLayout}
-				container
-				spacing={false}
-				item
-				sm={12}
-				xl={9}
-			>
-				<Grid item lg={3} className={classes.profile}>
-					<ProfileBar></ProfileBar>
+			<Grid container spacing={3}>
+				<Grid item sm={3} xs={12} className={classes.profile}>
+					<Profile />
 				</Grid>
-				<Grid item lg={5} sm={12} className={classes.screamBar}>
-					<Story />
-					<PostBar />
+				<Grid item sm={8} xs={12}>
 					{recentScreamsMarkup}
-				</Grid>
-				<Grid item lg={3} className={classes.friendBar}>
-					{/* <Profile /> */}
-					<FriendBar></FriendBar>
 				</Grid>
 			</Grid>
 		)

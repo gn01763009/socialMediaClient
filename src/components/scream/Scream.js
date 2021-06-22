@@ -7,6 +7,9 @@ import MyButton from '../../util/MyButton'
 import DeleteScream from './DeleteScream'
 import ScreamDialog from './ScreamDialog'
 import LikeButton from './LikeButton'
+import NavBarButton from '../../util/NavBarButton'
+import CommentBtn from '../../util/CommentBtn'
+import CommentForm from './CommentForm'
 // MUI Stuff
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
@@ -15,17 +18,23 @@ import Avatar from '@material-ui/core/Avatar'
 import { Button, Grid, Typography } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import Collapse from '@material-ui/core/Collapse'
+import { blue } from '@material-ui/core/colors'
 // Icon
-import ChatIcon from '@material-ui/icons/Chat'
+import PublicIcon from '@material-ui/icons/Public'
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt'
+import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline'
 
 // Redux
 import { connect } from 'react-redux'
 import theme from '../../theme'
+import { TrendingUpRounded } from '@material-ui/icons'
 
 const styles = {
 	card: {
 		position: 'relative',
 		marginBottom: 14,
+		backgroundColor: theme.palette.primary.main,
+		color: theme.palette.primary.contrastText,
 	},
 	image: {
 		width: theme.spacing(7),
@@ -33,30 +42,64 @@ const styles = {
 	},
 	userHandle: {
 		display: 'flex',
+		alignItems: 'center',
+	},
+	day: {
+		color: 'rgb(172,172,172)',
+		fontSize: 12,
+		display: 'flex',
+		alignItems: 'center',
 	},
 	content: {
-		padding: 25,
+		padding: '12px 16px 10px 16px',
 		objectFit: 'cover',
 	},
 	body: {
 		margin: 20,
 	},
-	hr: {
-		width: '100%',
-		color: 'grey',
+	likeCommentCount: {
+		color: 'rgb(172,172,172)',
+		paddingBottom: '15px',
+	},
+	likecountNIcon: {
+		display: 'flex',
+		alignItems: 'center',
+	},
+	likecount: {
+		margin: '0 0 0 5px',
 	},
 	userInfo: {
 		marginLeft: 8,
+		fontSize: 16,
+		color: theme.palette.primary.contrastText,
+		textTransform: 'capitalize',
 	},
 	like: {
 		textAlign: 'center',
+		'&::hover': {},
 	},
 	comment: {
 		textAlign: 'center',
 	},
+	commentTypo: {
+		margin: 10,
+	},
+	likeComment: {
+		color: 'rgb(172,172,172)',
+		borderTop: '1px solid rgb(87,88,86)',
+		borderBottom: '1px solid rgb(87,88,86)',
+	},
 }
 
 class Scream extends Component {
+	state = {
+		open: false,
+	}
+	handleOpen = () => {
+		this.state.open
+			? this.setState({ open: false })
+			: this.setState({ open: true })
+	}
 	render() {
 		dayjs.extend(relativeTime)
 		const {
@@ -82,30 +125,29 @@ class Scream extends Component {
 			) : null
 		return (
 			<Card className={classes.card}>
-				<CardMedia
-					component='img'
-					alt='Contemplative Reptile'
-					height='140'
-					image='https://source.unsplash.com/random/1200x800'
-					title='Contemplative Reptile'
-				/>
 				<CardContent className={classes.content}>
 					<Typography
 						variant='h5'
-						component={Link}
-						to={`/users/${userHandle}`}
 						color='primary'
 						className={classes.userHandle}
 					>
 						<Avatar
 							src={userImage}
+							component={Link}
 							title='Profile image'
 							className={classes.image}
+							to={`/users/${userHandle}`}
 						/>
-						<Grid className={classes.userInfo} direction='column'>
+						<Grid
+							component={Link}
+							to={`/users/${userHandle}`}
+							className={classes.userInfo}
+							direction='column'
+						>
 							{userHandle}
-							<Typography variant='body2' color='textSecondary'>
-								{dayjs(createdAt).fromNow()}
+							<Typography className={classes.day}>
+								{dayjs(createdAt).fromNow()} .
+								<PublicIcon style={{ fontSize: 14 }} />
 							</Typography>
 						</Grid>
 						<Grid>{deleteButton}</Grid>
@@ -113,21 +155,47 @@ class Scream extends Component {
 					<Typography variant='body2' className={classes.body}>
 						{body}
 					</Typography>
-					<hr className={classes.hr} />
-					<Grid container direction='row' justify='space-around'>
-						<Grid className={classes.like} item xs={6}>
+					<Grid
+						container
+						direction='row'
+						justify='space-between'
+						alignItems='center'
+						className={classes.likeCommentCount}
+					>
+						<span className={classes.likecountNIcon}>
+							<ThumbUpAltIcon style={{ color: blue[500] }} />
+							<span className={classes.likecount}>{likeCount}</span>
+						</span>
+						<span>{commentCount} Comments</span>
+					</Grid>
+					<Grid container direction='row' className={classes.likeComment}>
+						<Grid item xs={6}>
 							<LikeButton screamId={screamId} />
-							<span>{likeCount} Likes</span>
 						</Grid>
 						<Grid className={classes.comment} item xs={6}>
-							<ScreamDialog
-								screamId={screamId}
-								userHandle={userHandle}
-								openDialog={this.props.openDialog}
-							/>
-							<span>{commentCount} comments</span>
+							<CommentBtn
+								onClick={this.handleOpen}
+								typoClassName={classes.commentTypo}
+								title='Comment'
+							>
+								<ChatBubbleOutlineIcon style={{ marginRight: 10 }} />
+							</CommentBtn>
 						</Grid>
 					</Grid>
+					<CommentForm screamId={screamId} />
+					{/* <ScreamDialog
+						screamId={screamId}
+						userHandle={userHandle}
+						openDialog={this.state.open}
+					/> */}
+					{this.state.open ? (
+						<ScreamDialog
+							screamId={screamId}
+							userHandle={userHandle}
+							openDialog={true}
+							open
+						/>
+					) : null}
 				</CardContent>
 			</Card>
 		)

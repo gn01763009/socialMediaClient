@@ -4,8 +4,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { ThemeProvider } from '@material-ui/core/styles'
 import theme from './theme'
 import jwtDecode from 'jwt-decode'
-import drawerImage from './image/background.jpg'
-import { Grid, Paper } from '@material-ui/core'
 
 // Redux
 import { Provider } from 'react-redux'
@@ -39,7 +37,6 @@ if (token) {
 }
 class App extends Component {
 	render() {
-		const { classes } = this.props
 		return (
 			<ThemeProvider theme={theme}>
 				<Provider store={store}>

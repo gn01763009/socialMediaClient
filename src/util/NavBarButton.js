@@ -7,13 +7,14 @@ import theme from '../theme'
 const BootstrapButton = withStyles({
 	root: {
 		display: 'none',
-		[theme.breakpoints.up('md')]: {
+		[theme.breakpoints.up('sm')]: {
 			padding: '10px 41px',
 			display: 'flex',
 			cursor: 'pointer',
 			lineHeight: 1.5,
 			margin: '2px 5px',
 			borderRadius: '10px',
+			transition: 'unset',
 			'&.MuiButton-root': {
 				color: fade(theme.palette.common.white, 0.8),
 			},
@@ -23,6 +24,9 @@ const BootstrapButton = withStyles({
 				boxShadow: 'none',
 			},
 			'&:focus': {
+				'&:hover': {
+					backgroundColor: 'unset',
+				},
 				borderRadius: '0',
 				boxShadow: '0 5px 0 #2e81f4',
 				'&.MuiButton-root': {
@@ -33,10 +37,17 @@ const BootstrapButton = withStyles({
 	},
 })(Button)
 
-export default ({ children, tip, tipClassName }) => {
-	return (
+export default ({ children, onClick, tip, tipClassName }) => {
+	const withoutTip = tip ? (
 		<Tooltip title={tip} className={tipClassName} placement='top'>
-			<BootstrapButton disableRipple>{children}</BootstrapButton>
+			<BootstrapButton onClick={onClick} disableRipple>
+				{children}
+			</BootstrapButton>
 		</Tooltip>
+	) : (
+		<BootstrapButton onClick={onClick} className={tipClassName} disableRipple>
+			{children}
+		</BootstrapButton>
 	)
+	return withoutTip
 }

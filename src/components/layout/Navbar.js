@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import NavBarButton from '../../util/NavBarButton'
-import MyButton from '../../util/MyButton'
+import UserBarBtn from '../../util/UserBarBtn'
 import PostScream from '../scream/PostScream'
 import Notifications from './Notifications'
 // MUI stuff
@@ -26,15 +26,15 @@ import SendIcon from '@material-ui/icons/Send'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 
 const styles = (theme) => ({
-	AppBar: {
-		margin: theme.spacing(1),
-		minHeight: 'none',
+	appBar: {
+		backgroundColor: theme.palette.primary.main,
+		boxShadow: '0 1px 0 rgb(56, 58, 59)',
 	},
 	toolBar: {
 		display: 'flex',
 		justifyContent: 'space-between',
-		paddingLeft: 'none',
-		paddingRight: 'none',
+		padding: '0 20px',
+		minHeight: 0,
 	},
 	Typography: {
 		color: theme.secondary,
@@ -58,7 +58,7 @@ const styles = (theme) => ({
 		marginRight: theme.spacing(2),
 		marginLeft: 0,
 		width: '100%',
-		[theme.breakpoints.up('sm')]: {
+		[theme.breakpoints.up('xs')]: {
 			marginLeft: theme.spacing(2),
 			width: 'auto',
 		},
@@ -82,25 +82,26 @@ const styles = (theme) => ({
 		paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
 		transition: theme.transitions.create('width'),
 		width: '100%',
-		[theme.breakpoints.up('md')]: {
+		[theme.breakpoints.up('lg')]: {
 			width: '20ch',
 		},
 	},
 	sectionDesktop: {
 		display: 'none',
-		[theme.breakpoints.up('md')]: {
+		[theme.breakpoints.up('lg')]: {
 			display: 'flex',
 		},
 	},
 	sectionMobile: {
 		display: 'flex',
-		[theme.breakpoints.up('md')]: {
+		[theme.breakpoints.up('lg')]: {
 			display: 'none',
 		},
 	},
 	middleBar: {
 		display: 'flex',
-		justifyContent: 'space-around',
+		justifyContent: 'space-between',
+		maxWidth: 610,
 	},
 	userBar: {
 		display: 'flex',
@@ -113,9 +114,20 @@ const styles = (theme) => ({
 		justifyContent: 'space-between',
 		flexDirection: 'row-reverse',
 		alignItems: 'center',
+		marginRight: 5,
+		'& .MuiButtonBase-root': {
+			padding: '0 5px',
+			borderRadius: '99em',
+			textTransform: 'capitalize',
+			'&:hover': {
+				backgroundColor: fade(theme.palette.common.white, 0.25),
+				borderColor: '#0062cc',
+				boxShadow: 'none',
+			},
+		},
 	},
 	handleName: {
-		fontSize: '18px',
+		fontSize: '14px',
 		color: '#fff',
 	},
 })
@@ -130,11 +142,10 @@ class Navbar extends Component {
 			classes,
 		} = this.props
 		return (
-			<AppBar>
+			<AppBar className={classes.appBar}>
 				<Toolbar className={classes.toolBar}>
 					{authenticated ? (
 						<Fragment>
-							{/* TODO: (Left)   Seach Facebook */}
 							<Grid className={classes.searchBar} item sm={1}>
 								<img
 									className={classes.icon}
@@ -154,7 +165,6 @@ class Navbar extends Component {
 									/>
 								</div>
 							</Grid>
-							{/* TODO: (Middle) Icons bar */}
 							<Grid className={classes.middleBar} item sm={5}>
 								<Link to='/'>
 									<NavBarButton tip='Home'>
@@ -184,28 +194,28 @@ class Navbar extends Component {
 									</NavBarButton>
 								</Link>
 							</Grid>
-							{/* TODO: (Right)  User bar */}
 							<Grid className={classes.userBar} item sm={1}>
-								<MyButton tip='Account'>
+								<UserBarBtn tip='Account'>
 									<ArrowDropDownIcon style={{ fontSize: 24 }} />
-								</MyButton>
+								</UserBarBtn>
 								<Notifications />
-								<MyButton tip='Messager'>
+								<UserBarBtn tip='Messager'>
 									<SendIcon style={{ fontSize: 24 }} />
-								</MyButton>
+								</UserBarBtn>
 								<PostScream />
 								<div className={classes.handleBar}>
-									<MyButton tip={`Hello! ${handle}`}>
-										<Link to={`/users/${handle}`}>
+									<Link to={`/users/${handle}`}>
+										<Button disableRipple className={classes.handleButton}>
 											<Avatar src={imageUrl}></Avatar>
-										</Link>
-										<div className={classes.handleName}>{handle}</div>
-									</MyButton>
+											<div className={classes.handleName}>{handle}</div>
+										</Button>
+									</Link>
 								</div>
 							</Grid>
 						</Fragment>
 					) : (
 						<Fragment>
+							{/* TODO:change the unauthenticated account view */}
 							<Button color='inherit' component={Link} to='/signin'>
 								SignIn
 							</Button>

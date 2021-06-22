@@ -5,9 +5,15 @@ body {
 		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
 		sans-serif;
 }
+:root {
+	background-color: rgb(24, 25, 26);
+}
 .container {
-	margin: 80px auto 0 auto;
-	max-width: 1200px;
+	margin: 71px auto 0 auto;
+	width: 99vw;
+	max-width: 1940px;
+	display: flex;
+	justify-content: center;
 }
 
 .nav-container svg {

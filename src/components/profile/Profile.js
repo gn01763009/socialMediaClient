@@ -29,8 +29,14 @@ import { Grid } from '@material-ui/core'
 const styles = (theme) => ({
 	paper: {
 		padding: 20,
+		[theme.breakpoints.down('md')]: {
+			display: 'none',
+		},
 	},
 	profile: {
+		[theme.breakpoints.down('md')]: {
+			display: 'none',
+		},
 		'& .image-wrapper': {
 			textAlign: 'center',
 			position: 'relative',

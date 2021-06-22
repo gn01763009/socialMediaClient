@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
 import Badge from '@material-ui/core/Badge'
+import UserBarBtn from '../../util/UserBarBtn'
 // Icons
 import NotificationsIcon from '@material-ui/icons/Notifications'
 import FavoriteIcon from '@material-ui/icons/Favorite'
@@ -91,15 +92,14 @@ class Notifications extends Component {
 			)
 		return (
 			<Fragment>
-				<Tooltip placement='top' title='Notifications'>
-					<IconButton
-						aria-owns={anchorEl ? 'simple-menu' : undefined}
-						aria-haspopup='true'
-						onClick={this.handleOpen}
-					>
-						{notificationsIcon}
-					</IconButton>
-				</Tooltip>
+				<UserBarBtn
+					aria-owns={anchorEl ? 'simple-menu' : undefined}
+					aria-haspopup='true'
+					onClick={this.handleOpen}
+					tip='Notifications'
+				>
+					{notificationsIcon}
+				</UserBarBtn>
 				<Menu
 					anchorEl={anchorEl}
 					open={Boolean(anchorEl)}

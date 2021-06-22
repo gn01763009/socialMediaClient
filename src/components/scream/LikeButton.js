@@ -1,17 +1,19 @@
 import React, { Component, Fragment } from 'react'
-import FavoriteIcon from '@material-ui/icons/Favorite'
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
 import MyButton from '../../util/MyButton'
+import LikeBtn from '../../util/LikeBtn'
 import PropTypes from 'prop-types'
+import theme from '../../theme'
+// Redux
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+// Icon
+import { likeScream, unlikeScream } from '../../redux/actions/dataActions'
+import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined'
+import ThumbUpAltRoundedIcon from '@material-ui/icons/ThumbUpAltRounded'
+// MUI Stuff
+import { blue } from '@material-ui/core/colors'
 import Snackbar from '@material-ui/core/Snackbar'
 import MuiAlert from '@material-ui/lab/Alert'
-// MUI Stuff
-import { Link } from 'react-router-dom'
-// Icon
-// Redux
-import { connect } from 'react-redux'
-import { likeScream, unlikeScream } from '../../redux/actions/dataActions'
-
 function Alert(props) {
 	return <MuiAlert elevation={6} variant='filled' {...props} />
 }
@@ -32,9 +34,11 @@ class LikeButton extends Component {
 	}
 	likeScream = () => {
 		this.props.likeScream(this.props.screamId)
+		console.log(this.props.screamId)
 	}
 	unlikeScream = () => {
 		this.props.unlikeScream(this.props.screamId)
+		console.log(this.props.screamId)
 	}
 	handleClick = (event, reason) => {
 		this.setState({ open: true })
@@ -49,9 +53,9 @@ class LikeButton extends Component {
 		const { authenticated } = this.props.user
 		const likeButton = !authenticated ? (
 			<Fragment>
-				<MyButton tip='Login first?' onClick={this.handleClick}>
-					<FavoriteBorder />
-				</MyButton>
+				<LikeBtn onClick={this.handleClick} title='Like'>
+					<ThumbUpAltOutlinedIcon style={{ marginRight: 10 }} />
+				</LikeBtn>
 				<Snackbar
 					open={this.state.open}
 					autoHideDuration={6000}
@@ -64,13 +68,13 @@ class LikeButton extends Component {
 				</Snackbar>
 			</Fragment>
 		) : this.likedScream() ? (
-			<MyButton tip='Undo like' onClick={this.unlikeScream}>
-				<FavoriteIcon />
-			</MyButton>
+			<LikeBtn onClick={this.unlikeScream} title='Like'>
+				<ThumbUpAltRoundedIcon style={{ color: blue[500], marginRight: 10 }} />
+			</LikeBtn>
 		) : (
-			<MyButton tip='like' onClick={this.likeScream}>
-				<FavoriteBorder />
-			</MyButton>
+			<LikeBtn onClick={this.likeScream} title='Like'>
+				<ThumbUpAltOutlinedIcon style={{ marginRight: 10 }} />
+			</LikeBtn>
 		)
 		return likeButton
 	}

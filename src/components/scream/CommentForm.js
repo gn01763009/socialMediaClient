@@ -1,53 +1,52 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import withStyles from '@material-ui/core/styles/withStyles'
-
+import BadgeAvatar from '../../util/BadgeAvatar'
 // MUI
-import Button from '@material-ui/core/Button'
-import Grid from '@material-ui/core/Grid'
-import TextField from '@material-ui/core/TextField'
+import { Avatar, Typography, TextField, Button, Grid } from '@material-ui/core'
+import { fade, makeStyles } from '@material-ui/core/styles'
+import InputBase from '@material-ui/core/InputBase'
 //Redux stuff
 import { connect } from 'react-redux'
-import { getScream } from '../../redux/actions/dataActions'
 import { submitComment } from '../../redux/actions/dataActions'
-import { ErrorSharp } from '@material-ui/icons'
 const styles = (theme) => ({
-	invisibleSeparator: {
-		border: 'none',
-		margin: 4,
-	},
-	visibleSeparator: {
-		width: '100%',
-		borderBottom: '1px solid rgba(0,0,0,0.1)',
-		marginBottom: 20,
-	},
-	profileImage: {
-		maxWidth: 200,
-		height: 200,
-		borderRadius: '50%',
-		objectFit: 'cover',
-	},
-	dialogContent: {
-		padding: 20,
-	},
-	closeButton: {
-		position: 'absolute',
-		left: '90%',
-	},
-	expandButton: {
-		position: 'absolute',
-		left: '95%',
-	},
-	spinnerDiv: {
-		textAlign: 'center',
-		marginTop: 50,
-		marginBottom: 50,
-	},
-	submit: {
-		display: 'flex',
+	commentForm: {
+		marginTop: 20,
 	},
 	button: {
 		marginLeft: 10,
+		display: 'none',
+	},
+	//comment bar
+	submit: {
+		display: 'flex',
+		width: '90%',
+	},
+	comment: {
+		position: 'relative',
+		borderRadius: '20px',
+		backgroundColor: fade(theme.palette.common.white, 0.15),
+		'&:hover': {
+			backgroundColor: fade(theme.palette.common.white, 0.25),
+		},
+		marginRight: theme.spacing(2),
+		marginLeft: 0,
+		width: '100%',
+		marginTop: 5,
+	},
+	inputRoot: {
+		color: 'inherit',
+		padding: theme.spacing(1),
+		paddingRight: theme.spacing(3),
+		width: '100%',
+	},
+	inputInput: {
+		position: 'relative',
+		padding: '4px 0',
+		// vertical padding + font size from searchIcon
+		paddingLeft: theme.spacing(2),
+		transition: theme.transitions.create('width'),
+		width: '100%',
 	},
 })
 
@@ -72,12 +71,28 @@ class CommentForm extends Component {
 		this.props.submitComment(this.props.screamId, { body: this.state.body })
 	}
 	render() {
-		const { classes, authenticated } = this.props
+		const {
+			classes,
+			authenticated,
+			user: {
+				credentials: { imageUrl },
+			},
+		} = this.props
 		const errors = this.state.errors
 		const commentFormMarkup = authenticated ? (
-			<Grid item sm={12} styles={{ textAlign: 'center' }}>
+			<Grid
+				item
+				sm={12}
+				container
+				direction='row'
+				justify='flex-start'
+				alignItems='flex-start'
+				styles={{ textAlign: 'center' }}
+				className={classes.commentForm}
+			>
+				<BadgeAvatar imageUrl={imageUrl} authenticated={authenticated} />
 				<form onSubmit={this.handleSubmit} className={classes.submit}>
-					<TextField
+					{/* <TextField
 						name='body'
 						type='text'
 						label='Comment on scream'
@@ -86,16 +101,27 @@ class CommentForm extends Component {
 						onChange={this.handleChange}
 						fullWidth
 						className={classes.textField}
-						required
-					/>
+					/> */}
+					<div className={classes.comment}>
+						<InputBase
+							placeholder='Write a comment.....'
+							name='body'
+							fullWidth
+							onChange={this.handleChange}
+							classes={{
+								root: classes.inputRoot,
+								input: classes.inputInput,
+							}}
+							value={this.state.body}
+							inputProps={{ 'aria-label': 'input' }}
+						/>
+					</div>
 					<Button
 						type='submit'
 						variant='contained'
 						color='primary'
 						className={classes.button}
-					>
-						Submit
-					</Button>
+					></Button>
 				</form>
 			</Grid>
 		) : null
@@ -114,6 +140,7 @@ CommentForm.propTypes = {
 const mapStateToProps = (state) => ({
 	UI: state.UI,
 	authenticated: state.user.authenticated,
+	user: state.user,
 })
 
 export default connect(mapStateToProps, { submitComment })(

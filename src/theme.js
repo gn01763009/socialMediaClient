@@ -1,11 +1,13 @@
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
+import { fade } from '@material-ui/core/styles'
+
 const theme = createMuiTheme({
 	palette: {
 		primary: {
-			light: '#9a67ea',
-			main: '#673ab7',
-			dark: '#320b86',
-			contrasText: '#fff',
+			light: 'rgb(48,48,48)',
+			main: 'rgb(36,37,38)',
+			dark: 'rgb(24,25,26)',
+			contrasText: 'rgb(228,230,234)',
 		},
 		secondary: {
 			light: '#63a4ff',

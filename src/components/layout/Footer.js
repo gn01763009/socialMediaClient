@@ -1,15 +1,14 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Typography from '@material-ui/core/Typography'
 
-class Footer extends Component {
-	render() {
-		return <Copyright />
-	}
-}
-
-function Copyright() {
+export default ({ footerClassName }) => {
 	return (
-		<Typography variant='body2' color='textSecondary' align='center'>
+		<Typography
+			className={footerClassName}
+			variant='body2'
+			color='textSecondary'
+			align='center'
+		>
 			{'Copyright © '}
 			<a
 				color='inherit'
@@ -24,5 +23,3 @@ function Copyright() {
 		</Typography>
 	)
 }
-
-export default Footer
