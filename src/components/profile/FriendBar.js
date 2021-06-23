@@ -43,7 +43,6 @@ const styles = (theme) => ({
 	appBar: {
 		[theme.breakpoints.up('sm')]: {
 			marginRight: drawerWidth,
-			marginBottom: 200,
 		},
 	},
 	menuButton: {

@@ -3,21 +3,17 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import PropTypes from 'prop-types'
-import MyButton from '../../util/MyButton'
 import DeleteScream from './DeleteScream'
 import ScreamDialog from './ScreamDialog'
 import LikeButton from './LikeButton'
-import NavBarButton from '../../util/NavBarButton'
 import CommentBtn from '../../util/CommentBtn'
 import CommentForm from './CommentForm'
 // MUI Stuff
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
-import CardMedia from '@material-ui/core/CardMedia'
 import Avatar from '@material-ui/core/Avatar'
-import { Button, Grid, Typography } from '@material-ui/core'
+import { Grid, Typography } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import Collapse from '@material-ui/core/Collapse'
 import { blue } from '@material-ui/core/colors'
 // Icon
 import PublicIcon from '@material-ui/icons/Public'
@@ -27,7 +23,6 @@ import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline'
 // Redux
 import { connect } from 'react-redux'
 import theme from '../../theme'
-import { TrendingUpRounded } from '@material-ui/icons'
 
 const styles = {
 	card: {

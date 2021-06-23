@@ -15,6 +15,7 @@ import AuthRoute from './util/AuthRoute'
 // Components
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
+
 // Pages
 import home from './pages/home'
 import signin from './pages/signin'
@@ -55,7 +56,6 @@ class App extends Component {
 								/>
 							</Switch>
 						</div>
-						<Footer />
 					</Router>
 				</Provider>
 			</ThemeProvider>

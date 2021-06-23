@@ -9,8 +9,8 @@ import withStyles from '@material-ui/core/styles/withStyles'
 let sponsoredCompanies = {
 	describe: [`Best product ever`, 'Booking now'],
 	url: [
-		'https://source.unsplash.com/1600x900/?product,adv',
-		'https://source.unsplash.com/1600x900/?budapest',
+		'https://source.unsplash.com/random/1600x900?product',
+		'https://source.unsplash.com/random/1600x900?budapest',
 	],
 	webUrl: ['www.bestproduct.com', 'www.budapestbest.hu'],
 }
@@ -29,9 +29,19 @@ const styles = (theme) => ({
 	productImg: {
 		height: 110,
 		width: 120,
-		borderRadius: '10px',
 		marginRight: theme.spacing(2),
-		paddingLeft: 0,
+	},
+	imageSrc: {
+		position: 'absolute',
+		left: 0,
+		right: 0,
+		top: 0,
+		bottom: 0,
+		height: 'inherit',
+		width: 'inherit',
+		backgroundSize: 'cover',
+		borderRadius: '10px',
+		backgroundPosition: 'center 40%',
 	},
 })
 
@@ -45,10 +55,15 @@ class Sponsored extends Component {
 				</Typography>
 				{sponsoredCompanies.describe.map((text, index) => (
 					<ListItem className={classes.sponsoredItem} button key={text}>
-						<img
-							className={classes.productImg}
-							src={sponsoredCompanies.url[index]}
-						></img>
+						<span className={classes.productImg}>
+							<span
+								className={classes.imageSrc}
+								style={{
+									backgroundImage: `url(${sponsoredCompanies.url[index]})`,
+								}}
+							/>
+						</span>
+
 						<Typography variant='subtitle1'>
 							{text}
 							<Typography paragraph variant='subtitle2'>

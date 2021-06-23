@@ -39,7 +39,7 @@ const styles = (theme) => ({
 	Typography: {
 		color: theme.secondary,
 	},
-	icon: {
+	company: {
 		height: 40,
 		width: 40,
 		borderRadius: '99em',
@@ -147,8 +147,8 @@ class Navbar extends Component {
 					{authenticated ? (
 						<Fragment>
 							<Grid className={classes.searchBar} item sm={1}>
-								<img
-									className={classes.icon}
+								<Avatar
+									className={classes.company}
 									src='https://source.unsplash.com/random'
 								/>
 								<div className={classes.search}>

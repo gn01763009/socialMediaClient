@@ -21,11 +21,11 @@ import { Link } from 'react-router-dom'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ExpandLessIcon from '@material-ui/icons/ExpandLess'
 import MoreListItem from '../../util/MoreListItem'
-import Footer from '../../components/layout/Footer'
 const drawerWidth = 240
 
 const styles = (theme) => ({
 	profileBar: {
+		marginBottom: 200,
 		[theme.breakpoints.down('md')]: {
 			display: 'none',
 			zIndex: 'auto',
@@ -57,7 +57,6 @@ const styles = (theme) => ({
 		'*::-webkit-scrollbar': {
 			width: '0.6em',
 			scrollBehavior: 'smooth',
-			transitionTimingFunction: 'ease',
 		},
 		'*::-webkit-scrollbar-track': {
 			'-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)',
@@ -71,6 +70,7 @@ const styles = (theme) => ({
 	// Drawer
 	toolbar: theme.mixins.toolbar,
 	drawerPaper: {
+		marginBottom: 200,
 		[theme.breakpoints.down('md')]: {
 			display: 'none',
 			zIndex: '-1',
@@ -122,8 +122,17 @@ const styles = (theme) => ({
 			color: fade(theme.palette.common.white, 0.9),
 		},
 	},
+	greyHr: {
+		borderColor: fade(theme.palette.common.white, 0.1),
+		width: '90%',
+	},
+	shortcutText: {
+		color: fade(theme.palette.common.white, 0.3),
+	},
 	footer: {
 		position: 'absolute',
+		margin: theme.spacing(2),
+		color: fade(theme.palette.common.white, 0.3),
 	},
 })
 let iconUrl = {
@@ -191,12 +200,14 @@ class ProfileBar extends Component {
 						</ListItemIcon>
 						<ListItemText primary={this.state.open ? 'See less' : 'See more'} />
 					</ListItem>
-					<ListItem>
-						<ListItemText primary={'Your Shortcut'} />
+					<hr className={classes.greyHr} />
+					<ListItem className={classes.shortcut}>
+						<ListItemText
+							className={classes.shortcutText}
+							primary={'Your Shortcuts'}
+						/>
 					</ListItem>
-					<Divider />
 				</List>
-				<Footer footerClassName={classes.footer} />
 			</div>
 		)
 

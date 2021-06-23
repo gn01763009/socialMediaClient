@@ -12,16 +12,49 @@ import { Link } from 'react-router-dom'
 import Box from '@material-ui/core/Box'
 import Container from '@material-ui/core/Container'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import { blue, green, red } from '@material-ui/core/colors'
 
 // Redux stuff
 import { connect } from 'react-redux'
 import { signupUser } from '../redux/actions/userAction'
+const ValidationTextField = withStyles({
+	root: {
+		'& label.Mui-focused': {
+			color: theme.palette.primary.contrastText,
+		},
+		'& label ': {
+			color: theme.palette.primary.contrastText,
+		},
+		'& input': {
+			color: theme.palette.primary.contrastText,
+			borderColor: theme.palette.primary.dark,
+			borderWidth: 2,
+		},
+		'& input:valid + fieldset': {
+			borderColor: blue[500],
+			borderWidth: 2,
+		},
+		'& input:invalid + fieldset': {
+			borderColor: 'red',
+			borderWidth: 2,
+		},
+		'& input:valid:focus + fieldset': {
+			borderLeftWidth: 6,
+			padding: '4px !important', // override inline-style
+		},
+	},
+})(TextField)
+
 const styles = {
 	paper: {
-		marginTop: theme.spacing(8),
+		marginTop: theme.spacing(1),
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
+		backgroundColor: theme.palette.primary.light,
+		padding: 30,
+		borderRadius: 10,
+		color: theme.palette.primary.contrastText,
 	},
 	avatar: {
 		margin: theme.spacing(1),
@@ -30,9 +63,20 @@ const styles = {
 	form: {
 		width: '100%', // Fix IE 11 issue.
 		marginTop: theme.spacing(1),
+		color: theme.palette.common.white,
 	},
 	submit: {
 		margin: theme.spacing(3, 0, 2),
+		backgroundColor: blue[500],
+		'&:hover': {
+			backgroundColor: blue[400],
+		},
+		'&:active': {
+			backgroundColor: blue[200],
+		},
+		'&:disabled': {
+			backgroundColor: blue[100],
+		},
 	},
 	customError: {
 		color: 'red',
@@ -43,6 +87,10 @@ const styles = {
 	},
 	progress: {
 		position: 'absolute',
+		color: blue[200],
+	},
+	signIn: {
+		color: theme.palette.primary.contrastText,
 	},
 }
 
@@ -87,7 +135,7 @@ class signup extends Component {
 		} = this.props
 		const { errors } = this.state
 		return (
-			<Container component='main' maxWidth='xs'>
+			<Container component='main' maxWidth='sm'>
 				<div className={classes.paper}>
 					<Avatar className={classes.avatar}>
 						<LockOutlinedIcon />
@@ -100,16 +148,14 @@ class signup extends Component {
 						noValidate
 						onSubmit={this.handleSubmit}
 					>
-						<TextField
+						<ValidationTextField
 							variant='outlined'
 							margin='normal'
 							autoFocus
-							required
 							id='email'
 							name='email'
 							type='email'
 							label='Email Address'
-							className={classes.TextField}
 							helperText={errors.email}
 							error={
 								errors.email
@@ -122,16 +168,15 @@ class signup extends Component {
 							onChange={this.handleChange}
 							fullWidth
 						/>
-						<TextField
+						<ValidationTextField
 							variant='outlined'
 							margin='normal'
 							autoComplete='current-password'
-							required
 							id='password'
+							style={{ color: '#fff' }}
 							name='password'
 							label='Password'
 							type='password'
-							className={classes.TextField}
 							helperText={errors.password}
 							error={
 								errors.password
@@ -144,16 +189,14 @@ class signup extends Component {
 							onChange={this.handleChange}
 							fullWidth
 						/>
-						<TextField
+						<ValidationTextField
 							variant='outlined'
 							margin='normal'
 							autoComplete='current-password'
-							required
 							id='confirmPassword'
 							name='confirmPassword'
 							label='confirmPassword'
 							type='password'
-							className={classes.TextField}
 							helperText={errors.confirmPassword}
 							error={
 								errors.confirmPassword
@@ -166,15 +209,13 @@ class signup extends Component {
 							onChange={this.handleChange}
 							fullWidth
 						/>
-						<TextField
+						<ValidationTextField
 							variant='outlined'
 							margin='normal'
-							required
 							id='handle'
 							name='handle'
 							label='handle'
 							type='text'
-							className={classes.TextField}
 							helperText={errors.handle}
 							error={errors.handle ? true : false}
 							value={this.state.handle}
@@ -199,7 +240,7 @@ class signup extends Component {
 						</Button>
 						<Grid container>
 							<Grid item>
-								<Link to='/signin' variant='body2'>
+								<Link to='/signin' variant='body1' className={classes.signIn}>
 									Already have an account? Sign In
 								</Link>
 							</Grid>
