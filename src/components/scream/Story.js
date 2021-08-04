@@ -3,7 +3,6 @@ import { fade, withStyles } from '@material-ui/core/styles'
 import ButtonBase from '@material-ui/core/ButtonBase'
 import Typography from '@material-ui/core/Typography'
 import { Avatar } from '@material-ui/core'
-import IconButton from '@material-ui/core/IconButton'
 import UserBarBtn from '../../util/UserBarBtn'
 // Icon
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
@@ -52,10 +51,6 @@ const styles = (theme) => ({
 		padding: '0 2px',
 		position: 'relative',
 		alignItems: 'center',
-		[theme.breakpoints.down('xs')]: {
-			width: '100% !important', // Overrides inline-style
-			height: 100,
-		},
 
 		'&:hover, &$focusVisible': {
 			zIndex: 1,

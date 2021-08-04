@@ -2,7 +2,7 @@ import React from 'react'
 import Tooltip from '@material-ui/core/Tooltip'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Button from '@material-ui/core/Button'
-import { fade, makeStyles } from '@material-ui/core/styles'
+import { fade } from '@material-ui/core/styles'
 import theme from '../theme'
 const BootstrapButton = withStyles({
 	root: {

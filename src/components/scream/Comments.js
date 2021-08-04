@@ -1,16 +1,13 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import withStyles from '@material-ui/core/styles/withStyles'
-import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
 import BadgeAvatar from '../../util/BadgeAvatar'
-import theme from '../../theme'
 //MUI
 import Grid from '@material-ui/core/Grid'
 import { fade } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
+import withStyles from '@material-ui/core/styles/withStyles'
 
 // Redux
 
@@ -49,7 +46,6 @@ class Comments extends Component {
 		const { comments, classes } = this.props
 		return (
 			<Grid container>
-				{' '}
 				{comments
 					? comments.map((comment, index) => {
 							const { body, createdAt, userImage, userHandle } = comment

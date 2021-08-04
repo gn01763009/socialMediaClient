@@ -1,5 +1,4 @@
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
-import { fade } from '@material-ui/core/styles'
 
 const theme = createMuiTheme({
 	palette: {

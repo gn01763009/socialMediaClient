@@ -14,7 +14,6 @@ import AuthRoute from './util/AuthRoute'
 
 // Components
 import Navbar from './components/layout/Navbar'
-import Footer from './components/layout/Footer'
 
 // Pages
 import home from './pages/home'
@@ -24,7 +23,9 @@ import user from './pages/user'
 import axios from 'axios'
 axios.defaults.baseURL =
 	'https://asia-southeast1-socialmedia-cea22.cloudfunctions.net/api'
-const token = localStorage.FBIdToken
+
+//auth
+const token = localStorage.getItem('FBIdToken')
 if (token) {
 	const decodedToken = jwtDecode(token)
 	if (decodedToken.exp * 1000 < Date.now()) {
@@ -36,6 +37,7 @@ if (token) {
 		store.dispatch(getUserData())
 	}
 }
+
 class App extends Component {
 	render() {
 		return (

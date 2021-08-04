@@ -5,25 +5,14 @@ import Contacts from './Contacts'
 
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles'
-import Divider from '@material-ui/core/Divider'
 import Drawer from '@material-ui/core/Drawer'
 import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
 import { fade } from '@material-ui/core/styles'
-import { Avatar } from '@material-ui/core'
 
 // Redux
 import { connect } from 'react-redux'
 import { uploadImage, logoutUser } from '../../redux/actions/userAction'
-import { Link } from 'react-router-dom'
 
-// Icons
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import ExpandLessIcon from '@material-ui/icons/ExpandLess'
-import MoreListItem from '../../util/MoreListItem'
-import Footer from '../../components/layout/Footer'
 const drawerWidth = 240
 
 const styles = (theme) => ({
@@ -115,39 +104,18 @@ const styles = (theme) => ({
 		position: 'absolute',
 	},
 })
-let iconUrl = {
-	name: [
-		'COVID-19 Information Center',
-		'Friends',
-		'Watch',
-		'Memories',
-		'Group',
-	],
-	url: [
-		'https://static.xx.fbcdn.net/rsrc.php/v3/yi/r/FZK_jEWapM0.png',
-		'https://static.xx.fbcdn.net/rsrc.php/v3/yj/r/tSXYIzZlfrS.png',
-		'https://static.xx.fbcdn.net/rsrc.php/v3/y-/r/FhOLTyUFKwf.png',
-		'https://static.xx.fbcdn.net/rsrc.php/v3/y-/r/Uy-TOlM5VXG.png',
-		'https://static.xx.fbcdn.net/rsrc.php/v3/yj/r/Im_0d7HFH4n.png',
-	],
-}
 
 class FriendBar extends Component {
 	state = {
 		open: false,
 	}
-	handleClick = (event, reason) => {
+	handleClick = () => {
 		this.state.open
 			? this.setState({ open: false })
 			: this.setState({ open: true })
 	}
 	render() {
-		const {
-			classes,
-			user: {
-				credentials: { handle, imageUrl },
-			},
-		} = this.props
+		const { classes } = this.props
 		const drawer = (
 			<div className={classes.profileBar}>
 				<List>

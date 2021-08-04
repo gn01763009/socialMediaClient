@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import UserAvatar from './UserAvatar'
 
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles'
-import Divider from '@material-ui/core/Divider'
 import Drawer from '@material-ui/core/Drawer'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
@@ -15,13 +15,10 @@ import { Avatar } from '@material-ui/core'
 // Redux
 import { connect } from 'react-redux'
 import { uploadImage, logoutUser } from '../../redux/actions/userAction'
-import { Link } from 'react-router-dom'
-
 // Icons
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ExpandLessIcon from '@material-ui/icons/ExpandLess'
 import MoreListItem from '../../util/MoreListItem'
-const drawerWidth = 240
 
 const styles = (theme) => ({
 	profileBar: {
@@ -156,31 +153,17 @@ class ProfileBar extends Component {
 	state = {
 		open: false,
 	}
-	handleClick = (event, reason) => {
+	handleClick = () => {
 		this.state.open
 			? this.setState({ open: false })
 			: this.setState({ open: true })
 	}
 	render() {
-		const {
-			classes,
-			user: {
-				credentials: { handle, imageUrl },
-			},
-		} = this.props
+		const { classes } = this.props
 		const drawer = (
 			<div className={classes.profileBar}>
 				<List>
-					<Link to={`/users/${handle}`}>
-						<ListItem button>
-							<div className={classes.handleBar}>
-								<ListItemIcon>
-									<Avatar src={imageUrl}></Avatar>
-								</ListItemIcon>
-							</div>
-							<ListItemText primary={handle} />
-						</ListItem>
-					</Link>
+					<UserAvatar />
 					{iconUrl.name.map((text, index) => (
 						<ListItem button key={text}>
 							<ListItemIcon>

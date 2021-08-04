@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
+
+//MUI
 import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import { Card, Typography } from '@material-ui/core'
+import { Typography, ListItem } from '@material-ui/core'
 import withStyles from '@material-ui/core/styles/withStyles'
 
 let sponsoredCompanies = {

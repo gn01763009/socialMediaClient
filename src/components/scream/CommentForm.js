@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import withStyles from '@material-ui/core/styles/withStyles'
 import BadgeAvatar from '../../util/BadgeAvatar'
 // MUI
-import { Avatar, Typography, TextField, Button, Grid } from '@material-ui/core'
-import { fade, makeStyles } from '@material-ui/core/styles'
+import { Button, Grid } from '@material-ui/core'
+import { fade } from '@material-ui/core/styles'
 import InputBase from '@material-ui/core/InputBase'
 //Redux stuff
 import { connect } from 'react-redux'
@@ -53,7 +53,6 @@ const styles = (theme) => ({
 class CommentForm extends Component {
 	state = {
 		body: '',
-		errors: {},
 	}
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.UI.errors) {
@@ -70,6 +69,9 @@ class CommentForm extends Component {
 		event.preventDefault()
 		this.props.submitComment(this.props.screamId, { body: this.state.body })
 	}
+	clickScream = () => {
+		this.props.openComment(true)
+	}
 	render() {
 		const {
 			classes,
@@ -78,7 +80,6 @@ class CommentForm extends Component {
 				credentials: { imageUrl },
 			},
 		} = this.props
-		const errors = this.state.errors
 		const commentFormMarkup = authenticated ? (
 			<Grid
 				item
@@ -92,18 +93,9 @@ class CommentForm extends Component {
 			>
 				<BadgeAvatar imageUrl={imageUrl} authenticated={authenticated} />
 				<form onSubmit={this.handleSubmit} className={classes.submit}>
-					{/* <TextField
-						name='body'
-						type='text'
-						label='Comment on scream'
-						helperText={errors.comment}
-						value={this.state.body}
-						onChange={this.handleChange}
-						fullWidth
-						className={classes.textField}
-					/> */}
 					<div className={classes.comment}>
 						<InputBase
+							onClick={this.clickScream}
 							placeholder='Write a comment.....'
 							name='body'
 							fullWidth

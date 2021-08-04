@@ -17,7 +17,6 @@ import Paper from '@material-ui/core/Paper'
 import Location from '@material-ui/icons/LocationOn'
 import LinkIcon from '@material-ui/icons/Link'
 import CalendarToday from '@material-ui/icons/CalendarToday'
-import EditIcon from '@material-ui/icons/Edit'
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera'
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn'
 

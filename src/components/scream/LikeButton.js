@@ -1,8 +1,6 @@
 import React, { Component, Fragment } from 'react'
-import MyButton from '../../util/MyButton'
 import LikeBtn from '../../util/LikeBtn'
 import PropTypes from 'prop-types'
-import theme from '../../theme'
 // Redux
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'

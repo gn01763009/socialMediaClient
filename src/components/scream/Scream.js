@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import withStyles from '@material-ui/core/styles/withStyles'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import PropTypes from 'prop-types'
@@ -15,6 +14,7 @@ import Avatar from '@material-ui/core/Avatar'
 import { Grid, Typography } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { blue } from '@material-ui/core/colors'
+import withStyles from '@material-ui/core/styles/withStyles'
 // Icon
 import PublicIcon from '@material-ui/icons/Public'
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt'
@@ -91,10 +91,13 @@ class Scream extends Component {
 		open: false,
 	}
 	handleOpen = () => {
-		this.state.open
-			? this.setState({ open: false })
-			: this.setState({ open: true })
+		this.setState({ open: !this.state.open })
 	}
+
+	openComment = (open) => {
+		this.setState({ open })
+	}
+
 	render() {
 		dayjs.extend(relativeTime)
 		const {
@@ -113,7 +116,6 @@ class Scream extends Component {
 				credentials: { handle },
 			},
 		} = this.props
-
 		const deleteButton =
 			authenticated && userHandle === handle ? (
 				<DeleteScream screamId={screamId} />
@@ -170,14 +172,14 @@ class Scream extends Component {
 						<Grid className={classes.comment} item xs={6}>
 							<CommentBtn
 								onClick={this.handleOpen}
-								typoClassName={classes.commentTypo}
+								className={classes.commentTypo}
 								title='Comment'
 							>
 								<ChatBubbleOutlineIcon style={{ marginRight: 10 }} />
 							</CommentBtn>
 						</Grid>
 					</Grid>
-					<CommentForm screamId={screamId} />
+					<CommentForm openComment={this.openComment} screamId={screamId} />
 					{this.state.open ? (
 						<ScreamDialog
 							screamId={screamId}

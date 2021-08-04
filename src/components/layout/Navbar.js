@@ -1,5 +1,5 @@
-import React, { Component, Fragment, useReducer } from 'react'
-import { fade, makeStyles } from '@material-ui/core/styles'
+import React, { Component, Fragment } from 'react'
+import { fade } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'

@@ -2,10 +2,8 @@ import React, { Component } from 'react'
 import Grid from '@material-ui/core/Grid'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import theme from '../theme'
 
 import ProfileBar from '../components/profile/ProfileBar'
-import Profile from '../components/profile/Profile'
 import FriendBar from '../components/profile/FriendBar'
 import Scream from '../components/scream/Scream'
 import ScreamSkeleton from '../util/ScreamSkeleton'
@@ -25,7 +23,6 @@ const styles = {
 	},
 	screamBar: {
 		maxWidth: 590,
-		minWidth: 590,
 	},
 }
 class home extends Component {
@@ -35,8 +32,11 @@ class home extends Component {
 	render() {
 		const { classes } = this.props
 		const { screams, loading } = this.props.data
+		console.log('home render')
 		let recentScreamsMarkup = !loading ? (
-			screams.map((scream) => <Scream key={scream.screamId} scream={scream} />)
+			screams.map((scream) => {
+				return <Scream key={scream.screamId} scream={scream} />
+			})
 		) : (
 			<ScreamSkeleton />
 		)

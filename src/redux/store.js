@@ -21,6 +21,8 @@ const composeEnhancers =
 		: compose
 
 const enhancer = composeEnhancers(applyMiddleware(...middleware))
+
+//creatStore(reducer, [preloadedState], [enhancer])
 const store = createStore(reducers, initialState, enhancer)
 
 export default store

@@ -13,7 +13,6 @@ import UserBarBtn from '../../util/UserBarBtn'
 import { Avatar, Typography, Button, Grid } from '@material-ui/core'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
-import InputBase from '@material-ui/core/InputBase'
 
 // Icon
 import CloseIcon from '@material-ui/icons/Close'
