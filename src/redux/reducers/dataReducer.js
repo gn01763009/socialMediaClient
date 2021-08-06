@@ -8,6 +8,8 @@ import {
 	SET_SCREAM,
 	SUBMIT_COMMENT,
 } from '../types'
+//for immutable rule
+import produce from 'immer'
 
 const initialState = {
 	screams: [],
@@ -15,60 +17,77 @@ const initialState = {
 	loading: false,
 }
 
-export default function (state = initialState, action) {
+// after using 'immer' it can be mutable
+export default produce((state, action) => {
 	switch (action.type) {
 		case LOADING_DATA:
-			return {
-				...state,
-				loading: true,
-			}
+			state.loading = true
+			return
+		// return {
+		// 	...state,
+		// 	loading: true,
+		// }
 		case SET_SCREAMS:
-			return {
-				...state,
-				screams: action.payload,
-				loading: false,
-			}
+			state.screams = action.payload
+			state.loading = false
+			return
+		// return {
+		// 	...state,
+		// 	screams: action.payload,
+		// 	loading: false,
+		// }
 		case SET_SCREAM:
-			return {
-				...state,
-				scream: action.payload,
-			}
+			state.scream = action.payload
+			return
+		// return {
+		// 	...state,
+		// 	scream: action.payload,
+		// }
 		case LIKE_SCREAM:
 		case UNLIKE_SCREAM:
 			let index = state.screams.findIndex(
 				(scream) => scream.screamId === action.payload.screamId
 			)
 			state.screams[index] = action.payload
-			if (state.scream.screamId === action.payload.screamId) {
-				state.scream = action.payload
-			}
-			return {
-				...state,
-				scream: action.payload,
-			}
+			return
+		// return {
+		// 	...state,
+		// }
 		case DELETE_SCREAM:
-			let indexDelete = state.screams.findIndex(
+			index = state.screams.findIndex(
 				(scream) => scream.screamId === action.payload
 			)
-			state.screams.splice(indexDelete, 1)
-			return {
-				...state,
-			}
+			state.screams.splice(index, 1)
+			return
+		// return {
+		// 	...state,
+		// }
 		case POST_SCREAM:
-			return {
-				...state,
-				screams: [action.payload, ...state.screams],
-			}
+			state.screams = [action.payload, ...state.screams]
+			return
+		// return {
+		// 	...state,
+		// 	screams: [action.payload, ...state.screams],
+		// }
 		case SUBMIT_COMMENT:
-			return {
-				...state,
-				scream: {
-					...state.scream,
-					comments: [action.payload, ...state.scream.comments],
-					commentCount: state.scream.commentCount + 1,
-				},
+			let indexComment = state.screams.findIndex(
+				(scream) => scream.screamId === action.payload.screamId
+			)
+			let commentCount = state.screams[indexComment].commentCount + 1
+			state.screams[indexComment] = {
+				...state.screams[indexComment],
+				commentCount: commentCount,
 			}
+			return
+		// return {
+		// 	...state,
+		// 	scream: {
+		// 		...state.scream,
+		// 		comments: [action.payload, ...state.scream.comments],
+		// 		commentCount: state.scream.commentCount + 1,
+		// 	},
+		// }
 		default:
 			return state
 	}
-}
+}, initialState)

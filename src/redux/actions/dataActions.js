@@ -65,7 +65,12 @@ export const postScream = (newScream) => (dispatch) => {
 		})
 }
 // Like a scream
-export const likeScream = (screamId) => (dispatch) => {
+export const likeScream = (screamId, scream) => (dispatch) => {
+	// dispatch first for the request latency
+	dispatch({
+		type: LIKE_SCREAM,
+		payload: scream,
+	})
 	axios
 		.get(`/scream/${screamId}/like`)
 		.then((res) => {
@@ -77,7 +82,12 @@ export const likeScream = (screamId) => (dispatch) => {
 		.catch((err) => console.log(err))
 }
 // Unlike a scream
-export const unlikeScream = (screamId) => (dispatch) => {
+export const unlikeScream = (screamId, scream) => (dispatch) => {
+	// dispatch first for the request latency
+	dispatch({
+		type: UNLIKE_SCREAM,
+		payload: scream,
+	})
 	axios
 		.get(`/scream/${screamId}/unlike`)
 		.then((res) => {
@@ -90,6 +100,7 @@ export const unlikeScream = (screamId) => (dispatch) => {
 }
 // Submit a comment
 export const submitComment = (screamId, commentData) => (dispatch) => {
+	dispatch({ type: LOADING_UI })
 	axios
 		.post(`/scream/${screamId}/comment`, commentData)
 		.then((res) => {
@@ -98,6 +109,7 @@ export const submitComment = (screamId, commentData) => (dispatch) => {
 				payload: res.data,
 			})
 			dispatch(clearErrors())
+			dispatch({ type: STOP_LOADING_UI })
 		})
 		.catch((err) => {
 			dispatch({

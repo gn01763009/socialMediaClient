@@ -8,7 +8,7 @@ import { fade } from '@material-ui/core/styles'
 import InputBase from '@material-ui/core/InputBase'
 //Redux stuff
 import { connect } from 'react-redux'
-import { submitComment } from '../../redux/actions/dataActions'
+import { submitComment, getScreams } from '../../redux/actions/dataActions'
 const styles = (theme) => ({
 	commentForm: {
 		marginTop: 20,
@@ -54,20 +54,25 @@ class CommentForm extends Component {
 	state = {
 		body: '',
 	}
-	componentWillReceiveProps(nextProps) {
+
+	static getDerivedStateFromProps(nextProps, prevState) {
+		// if the server res error
 		if (nextProps.UI.errors) {
-			this.setState({ errors: nextProps.UI.errors })
+			return { errors: nextProps.UI.errors }
 		}
-		if (!nextProps.UI.errors && !nextProps.UI.loading) {
-			this.setState({ body: '' })
-		}
+		// return same value
+		return { body: prevState.body }
 	}
 	handleChange = (event) => {
+		// for the InputBase, without this it can't type
 		this.setState({ [event.target.name]: event.target.value })
 	}
 	handleSubmit = (event) => {
 		event.preventDefault()
+		this.props.submitUpdate(this.props.screamId)
 		this.props.submitComment(this.props.screamId, { body: this.state.body })
+		// clean the context
+		this.setState({ body: '' })
 	}
 	clickScream = () => {
 		this.props.openComment(true)
@@ -104,6 +109,7 @@ class CommentForm extends Component {
 								root: classes.inputRoot,
 								input: classes.inputInput,
 							}}
+							disabled={this.props.UI.loading}
 							value={this.state.body}
 							inputProps={{ 'aria-label': 'input' }}
 						/>
@@ -135,6 +141,6 @@ const mapStateToProps = (state) => ({
 	user: state.user,
 })
 
-export default connect(mapStateToProps, { submitComment })(
+export default connect(mapStateToProps, { submitComment, getScreams })(
 	withStyles(styles)(CommentForm)
 )

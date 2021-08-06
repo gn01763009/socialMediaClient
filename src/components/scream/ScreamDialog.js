@@ -41,53 +41,41 @@ const styles = (theme) => ({
 
 class ScreamDialog extends Component {
 	state = {
-		open: false,
-		oldPath: '',
-		newPath: '',
 		comments: [],
 	}
 	componentDidMount() {
-		if (this.props.openDialog) {
-			let oldPath = window.location.pathname
-
-			const { userHandle, screamId } = this.props
-			const newPath = `/users/${userHandle}/scream/${screamId}`
-
-			if (oldPath === newPath) oldPath = `/users/${userHandle}`
-
-			window.history.pushState(null, null, newPath)
-
+		const { screamId } = this.props
+		// for the init data
+		if (this.props.openDialog || this.props.submitUpdate) {
 			axios.get(`/scream/${screamId}`).then((res) => {
 				this.setState({ comments: res.data.comments })
 			})
-
-			this.setState({ open: true, oldPath, newPath })
-			this.props.getScream(this.props.screamId)
-			console.log(`I changed ${screamId}`)
 		}
 	}
-	handleClose = () => {
-		window.history.pushState(null, null, this.state.oldPath)
-		this.setState({ open: false })
-		this.props.clearErrors()
+	componentDidUpdate() {
+		if (
+			this.props.openDialog &&
+			this.props.screamId === this.props.submitUpdate
+		) {
+			axios.get(`/scream/${this.props.screamId}`).then((res) => {
+				// update comments from 'CommentForm'
+				if (this.state.comments.length !== res.data.comments.length) {
+					this.setState({ comments: res.data.comments })
+				}
+			})
+		}
 	}
 
 	render() {
-		const {
-			scream: { screamId },
-		} = this.props
-
-		const dialogMarkup = this.state.open ? (
-			<Grid container spacing={2}>
-				<div></div>
-				<Comments comments={this.state.comments} />
-			</Grid>
-		) : (
-			<Grid container spacing={2}>
-				<div></div>
-			</Grid>
+		return (
+			<Fragment>
+				{this.props.openDialog ? (
+					<Grid container spacing={2}>
+						<Comments comments={this.state.comments} />
+					</Grid>
+				) : null}
+			</Fragment>
 		)
-		return <Fragment key={screamId}>{dialogMarkup}</Fragment>
 	}
 }
 
@@ -97,13 +85,10 @@ ScreamDialog.propTypes = {
 	screamId: PropTypes.string.isRequired,
 	userHandle: PropTypes.string.isRequired,
 	scream: PropTypes.object.isRequired,
-	UI: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = (state) => ({
-	scream: state.data.scream,
-	UI: state.UI,
-	user: state.user,
+	data: state.data,
 })
 
 const mapActionsToProps = {

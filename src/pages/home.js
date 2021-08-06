@@ -32,7 +32,6 @@ class home extends Component {
 	render() {
 		const { classes } = this.props
 		const { screams, loading } = this.props.data
-		console.log('home render')
 		let recentScreamsMarkup = !loading ? (
 			screams.map((scream) => {
 				return <Scream key={scream.screamId} scream={scream} />
@@ -44,7 +43,7 @@ class home extends Component {
 			<Grid
 				className={classes.mainLayout}
 				container
-				spacing={false}
+				spacing={2}
 				item
 				sm={12}
 				xl={9}

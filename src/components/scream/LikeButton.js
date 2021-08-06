@@ -19,24 +19,23 @@ function Alert(props) {
 class LikeButton extends Component {
 	state = {
 		open: false,
+		likeHandle: false,
 	}
-	likedScream = () => {
+	static getDerivedStateFromProps(props, state) {
 		if (
-			this.props.user.likes &&
-			this.props.user.likes.find(
-				(like) => like.screamId === this.props.screamId
-			)
+			props.user.likes &&
+			props.user.likes.find((like) => like.screamId === props.screamId)
 		)
-			return true
-		else return false
+			return { likeHandle: true, requesting: false }
+		else return { likeHandle: false, requesting: false }
 	}
 	likeScream = () => {
-		this.props.likeScream(this.props.screamId)
-		console.log(this.props.screamId)
+		this.props.likeScream(this.props.screamId, this.props.scream)
+		this.setState({ requesting: true })
 	}
 	unlikeScream = () => {
-		this.props.unlikeScream(this.props.screamId)
-		console.log(this.props.screamId)
+		this.props.unlikeScream(this.props.screamId, this.props.scream)
+		this.setState({ requesting: true })
 	}
 	handleClick = (event, reason) => {
 		this.setState({ open: true })
@@ -65,7 +64,7 @@ class LikeButton extends Component {
 					</Alert>
 				</Snackbar>
 			</Fragment>
-		) : this.likedScream() ? (
+		) : this.state.likeHandle ? (
 			<LikeBtn onClick={this.unlikeScream} title='Like'>
 				<ThumbUpAltRoundedIcon style={{ color: blue[500], marginRight: 10 }} />
 			</LikeBtn>

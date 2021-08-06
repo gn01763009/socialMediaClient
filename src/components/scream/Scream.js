@@ -8,6 +8,7 @@ import LikeButton from './LikeButton'
 import CommentBtn from '../../util/CommentBtn'
 import CommentForm from './CommentForm'
 // MUI Stuff
+import theme from '../../theme'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Avatar from '@material-ui/core/Avatar'
@@ -22,7 +23,7 @@ import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline'
 
 // Redux
 import { connect } from 'react-redux'
-import theme from '../../theme'
+import { getScream } from '../../redux/actions/dataActions'
 
 const styles = {
 	card: {
@@ -89,13 +90,20 @@ const styles = {
 class Scream extends Component {
 	state = {
 		open: false,
+		comments: [],
+		submitState: {},
 	}
 	handleOpen = () => {
 		this.setState({ open: !this.state.open })
 	}
 
 	openComment = (open) => {
-		this.setState({ open })
+		this.setState({ open: true })
+	}
+
+	//commentForm to ScreamDialog
+	submitUpdate = (submitState) => {
+		this.setState({ submitState })
 	}
 
 	render() {
@@ -115,6 +123,7 @@ class Scream extends Component {
 				authenticated,
 				credentials: { handle },
 			},
+			scream, //for LikeBtn
 		} = this.props
 		const deleteButton =
 			authenticated && userHandle === handle ? (
@@ -167,7 +176,7 @@ class Scream extends Component {
 					</Grid>
 					<Grid container direction='row' className={classes.likeComment}>
 						<Grid item xs={6}>
-							<LikeButton screamId={screamId} />
+							<LikeButton screamId={screamId} scream={scream} />
 						</Grid>
 						<Grid className={classes.comment} item xs={6}>
 							<CommentBtn
@@ -179,14 +188,17 @@ class Scream extends Component {
 							</CommentBtn>
 						</Grid>
 					</Grid>
-					<CommentForm openComment={this.openComment} screamId={screamId} />
-					{this.state.open ? (
-						<ScreamDialog
-							screamId={screamId}
-							userHandle={userHandle}
-							openDialog={true}
-						/>
-					) : null}
+					<CommentForm
+						openComment={this.openComment}
+						screamId={screamId}
+						submitUpdate={this.submitUpdate}
+					/>
+					<ScreamDialog
+						screamId={screamId}
+						userHandle={userHandle}
+						openDialog={this.state.open}
+						submitUpdate={this.state.submitState}
+					/>
 				</CardContent>
 			</Card>
 		)
@@ -202,6 +214,9 @@ Scream.propTypes = {
 
 const mapStateToProps = (state) => ({
 	user: state.user,
+	data: state.data,
 })
 
-export default connect(mapStateToProps)(withStyles(styles)(Scream))
+export default connect(mapStateToProps, { getScream })(
+	withStyles(styles)(Scream)
+)
