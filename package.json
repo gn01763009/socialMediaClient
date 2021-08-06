@@ -28,12 +28,6 @@
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
 	},
-	"eslintConfig": {
-		"extends": [
-			"react-app",
-			"react-app/jest"
-		]
-	},
 	"browserslist": {
 		"production": [
 			">0.2%",
@@ -46,5 +40,8 @@
 			"last 1 safari version"
 		]
 	},
-	"proxy": "https://asia-southeast1-socialmedia-cea22.cloudfunctions.net/api"
+	"proxy": "https://asia-southeast1-socialmedia-cea22.cloudfunctions.net/api",
+	"devDependencies": {
+		"eslint": "^7.32.0"
+	}
 }
